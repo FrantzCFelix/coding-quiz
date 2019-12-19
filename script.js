@@ -7,6 +7,7 @@ var startButton = $('#start-button')
 
 /****************************************/
 startButton.on("click",function () {
+    $("#start-screen").hide();
     startTimer(4, timerDisplay)
 });
 
