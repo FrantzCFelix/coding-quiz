@@ -8,3 +8,7 @@ hr.hr-quiz-bar {
     border: 1px solid white;
     border-radius: 1px;
 }
+
+span.span-quiz{
+    width: 50px;
+}
