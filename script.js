@@ -10,16 +10,42 @@ var questionIndex = 0;
  
 
 /****************************************/
-startButton.on("click", startGame);
-function startGame() {
+startButton.on("click", function(){
 
-    $("#start-screen").hide();
+    startGame()
+    generateQuestion(questions);
 
-    timerId = setInterval(timer, 1000);
+
+});
+
+
+function generateQuestion(questionsArr)
+{
+    var quizDiv = $("#quiz");
+    var displayedQuestion = $("<h1></h1>")
+    displayedQuestion.text(questionsArr[questionIndex].title);
+    quizDiv.append(displayedQuestion);
     
+    for(var i = 0; i< questionsArr[questionIndex].choices.length;i++)
+    {
+        console.log(questionsArr[questionIndex].choices.length);
+        var choice = $("<a>----------------</a>");
+        quizDiv.append(choice);
+
+
+
+    }
+
+
+    
+
+
+questionIndex++;
 }
 
-// generateQuestion()
+
+
+
 // question.title[0]
 // questionIndex++
 // if (questions.length === questionIndex) {gameOver()} else {generateQuestion[questionIndex]}
@@ -38,6 +64,14 @@ function startGame() {
 
 // WrongAnswer()
 
+function startGame() {
+
+    $("#start-screen").hide();
+
+     timerId = setInterval(timer, 1000);
+    
+}
+
 
 
 
@@ -46,8 +80,8 @@ function timer() {
     --timeRemaining;
 
     timerDisplay.text(timeRemaining);
-git
-    if (timeRemaining < 0) {
+
+    if (timeRemaining <= 0) {
         
         // GameOver
         clearInterval(timerId)
