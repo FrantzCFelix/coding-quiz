@@ -3,3 +3,8 @@ body{
     background-color: #00360e;
 
 }
+
+hr.hr-quiz-bar {
+    border: 1px solid white;
+    border-radius: 1px;
+}
