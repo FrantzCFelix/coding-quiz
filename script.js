@@ -5,16 +5,17 @@
 var timerDisplay = $('#time-display');
 var startButton = $('#start-button');
 var quizDiv = $("#quiz");
-var highScoreDiv =$("#submit-high-score");
-var finalScoreSpan= $("#final-score");
+var highScoreDiv = $("#submit-high-score");
+var finalScoreSpan = $("#final-score");
 var submitButton = $("#submit-button");
+var clearButton = $("#clear-storage");
 var timeRemaining = (questions.length * 15);
 var timerId;
 var questionIndex = 0;
 var score = 0;
 var highScoreKey = "highScoreKey";
 var highScoreString;
-var highScoreCount=0;
+
 var highScoreArr = JSON.parse(localStorage.getItem(highScoreKey)) || [];
 highScoreDiv.hide();
 
@@ -29,69 +30,61 @@ startButton.on("click", function () {
     startGame();
     generateQuestion(questions);
 
-    
-   
-    
+});
 
-
+clearButton.on("click", function(){
+    clearHighScore();    
 });
 
 
-function submitScore()
-{
-    
-    var tempHighScoreVar;
-    
+function submitScore() {
+
     highScoreDiv.show();
-    finalScoreSpan.text("Your Final Score Is: "+score);
- submitButton.on("click",function(){
-    var initialVal = $("#inital-input").val();    
-    highScoreArr.push({score, initialVal});
-    highScoreString = JSON.stringify(highScoreArr);
-    
-    localStorage.setItem(highScoreKey, highScoreString );
-    highScoreCount++;
-    
+    finalScoreSpan.text("Your Final Score Is: " + score);
+    submitButton.on("click", function () {
+        var initialVal = $("#inital-input").val();
+        highScoreArr.push({ score, initialVal });
+        highScoreString = JSON.stringify(highScoreArr);
+        localStorage.setItem(highScoreKey, highScoreString);
+       
 
+    });
 
- });
-    
-
-    
 }
 
 
 
 
 
-function gameOver()
-{
-        
-        score=timeRemaining;
-        timerDisplay.text(score);
-        clearInterval(timerId);
-        quizDiv.empty();
-        submitScore();
+function gameOver() {
+
+    score = timeRemaining;
+    timerDisplay.text(score);
+    clearInterval(timerId);
+    quizDiv.empty();
+    submitScore();
 }
 //getHighscore()
-//clearHighScore()
+function clearHighScore()
+{
+    
+    localStorage.clear();
+    highScoreArr = [];
+
+}
 
 
 
 
 function generateQuestion(questionsArr) {
 
-    
+
     var displayedQuestion = $("<h1></h1>");
 
-    if(questionIndex  === questions.length)
-    {
-      gameOver();
-      return;
+    if (questionIndex === questions.length) {
+        gameOver();
+        return;
     }
-
-   
-
 
     displayedQuestion.addClass("text-center text-white");
     displayedQuestion.text(questionsArr[questionIndex].title);
@@ -109,18 +102,15 @@ function generateQuestion(questionsArr) {
 
     }
     valdiateAnswer(questionsArr)
-   
-    
+
 }
 
-function valdiateAnswer(questionArr)
-{
+function valdiateAnswer(questionArr) {
     var choiceButtons = $(".choice-button");
     choiceButtons.on("click", function () {
         var choiceButtonPicked = $(event.target).attr("id");
 
-
-        if ((questionArr[questionIndex].choices[choiceButtonPicked] === questionArr[questionIndex].answer)&&questionIndex < questionArr.length) {
+        if ((questionArr[questionIndex].choices[choiceButtonPicked] === questionArr[questionIndex].answer) && questionIndex < questionArr.length) {
             var hrBar = $("<hr>");
             hrBar.text("Correct!");
             hrBar.addClass("span-quiz text-center m-auto py-3 badge badge-success w-50")
@@ -138,19 +128,19 @@ function valdiateAnswer(questionArr)
                 generateQuestion(questions)
             }, 1000);
         }
-        else{
+        else {
             var hrBar = $("<hr>");
             hrBar.text("Wrong!");
             hrBar.addClass("span-quiz text-center m-auto py-3 badge badge-danger w-50")
             quizDiv.append(hrBar);
 
-             //to display correct/wrong before wipe
-             setTimeout(function () {
+            //to display correct/wrong before wipe
+            setTimeout(function () {
                 quizDiv.empty();
             }, 1000);
 
             questionIndex++;
-            timeRemaining-=10;
+            timeRemaining -= 10;
 
             setTimeout(function () {
                 generateQuestion(questions)
@@ -158,11 +148,8 @@ function valdiateAnswer(questionArr)
 
         }
 
-
-       
-
     });
-    
+
 }
 
 function startGame() {
