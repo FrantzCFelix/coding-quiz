@@ -4,7 +4,7 @@
 /*******var decleration******************/
 var timerDisplay = $('#time-display');
 var startButton = $('#start-button');
-var timeRemaining = questions.length * 15;
+var timeRemaining = (questions.length * 15)+1;
 var timerId;
 var questionIndex = 0;
 var score = 0;
@@ -16,6 +16,7 @@ startButton.on("click", function () {
 
     startGame();
     generateQuestion(questions);
+   
     
 
 
@@ -25,13 +26,16 @@ startButton.on("click", function () {
 
 
 
-//SubmitScore()
-// if (questions.length === questionIndex) {gameOver()
-//function gameOver()
-//{
-//    if(timeRemaining)
+function gameOver()
+{
+    
+        score=timeRemaining;
+        timerDisplay.text(score);
+        clearInterval(timerId);
+        quizDiv.empty();
+    
     //submitScore()
-//}
+}
 //getHighscore()
 //clearHighScore()
 
@@ -39,8 +43,18 @@ startButton.on("click", function () {
 
 
 function generateQuestion(questionsArr) {
+
     
     var displayedQuestion = $("<h1></h1>");
+
+    if(questionIndex  === questions.length)
+    {
+      gameOver();
+      return;
+    }
+
+   
+
 
     displayedQuestion.addClass("text-center");
     displayedQuestion.text(questionsArr[questionIndex].title);
@@ -58,6 +72,8 @@ function generateQuestion(questionsArr) {
 
     }
     valdiateAnswer(questionsArr)
+   
+    
 }
 
 function valdiateAnswer(questionArr)
@@ -124,11 +140,11 @@ function timer() {
 
     --timeRemaining;
 
-    timerDisplay.text(timeRemaining);
+    timerDisplay.text("Time:" + timeRemaining);
 
     if (timeRemaining <= 0) {
 
-        // GameOver
+        gameOver();
         clearInterval(timerId);
     }
 }
