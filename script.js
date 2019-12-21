@@ -4,17 +4,20 @@
 /*******var decleration******************/
 var timerDisplay = $('#time-display');
 var startButton = $('#start-button');
-var timeRemaining = (questions.length * 15)+1;
+var quizDiv = $("#quiz");
+var highScoreDiv =$("#submit-high-score");
+var finalScoreSpan= $("#final-score");
+var timeRemaining = (questions.length * 15);
 var timerId;
 var questionIndex = 0;
 var score = 0;
-var quizDiv = $("#quiz");
-var highScoreDiv =$("#submit-high-score");
 highScoreDiv.hide();
 
 
 
 /****************************************/
+timerDisplay.text("Time:" + timeRemaining);
+
 startButton.on("click", function () {
 
     startGame();
@@ -30,6 +33,8 @@ startButton.on("click", function () {
 function submitScore()
 {
 
+    highScoreDiv.show();
+    finalScoreSpan.text("Your Final Score Is: "+score);
     
 }
 
@@ -44,10 +49,7 @@ function gameOver()
         timerDisplay.text(score);
         clearInterval(timerId);
         quizDiv.empty();
-        highScoreDiv.show();
-        
-    
-    //submitScore()
+        submitScore();
 }
 //getHighscore()
 //clearHighScore()
