@@ -9,6 +9,9 @@ var timerId;
 var questionIndex = 0;
 var score = 0;
 var quizDiv = $("#quiz");
+var highScoreDiv =$("#submit-high-score");
+highScoreDiv.hide();
+
 
 
 /****************************************/
@@ -16,11 +19,19 @@ startButton.on("click", function () {
 
     startGame();
     generateQuestion(questions);
+
+    
    
     
 
 
 });
+
+function submitScore()
+{
+
+    
+}
 
 
 
@@ -28,11 +39,13 @@ startButton.on("click", function () {
 
 function gameOver()
 {
-    
+        
         score=timeRemaining;
         timerDisplay.text(score);
         clearInterval(timerId);
         quizDiv.empty();
+        highScoreDiv.show();
+        
     
     //submitScore()
 }

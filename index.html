@@ -15,17 +15,16 @@
 <body>
 
 
-<!--HighScore Link & Timer Display-->
+    <!--HighScore Link & Timer Display-->
     <div class="container">
         <div class="row">
             <a class="col-md-2" href="#">High Scores</a>
             <span class="col-md-8"></span>
-            <p class="col-md-2 text-white" id="time-display"></p>
+            <span class="col-md-2 text-white" id="time-display">Time:</span>
         </div>
     </div>
 
-
-
+    <div class="list-group w-50 m-auto" id="quiz"></div>
 
     <div class="jumbotron" id="start-screen">
         <h1 class="display-4">Coding Quiz</h1>
@@ -37,8 +36,17 @@
             voluptate ad cupiditate illo excepturi.</p>
         <a class="btn btn-primary btn-lg" href="#" role="button" id="start-button">Start!</a>
     </div>
+    <div class =" w-50 mx-auto mb-auto mt-5 pt-5" id ="submit-high-score">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Enter Initials" aria-label="Enter Initials"
+                aria-describedby="button-addon">
+            <div class="input-group-append">
+                <button class="btn btn-primary btn-outline-secondary" type="button" id="button-addon">Submit</button>
+            </div>
+        </div>
+    </div>
 
-    
+
 
 
 
@@ -46,7 +54,7 @@
 
 
     <script src="questions.js"></script>
-    <script src="functions.js"></script>
+
     <script src="script.js"></script>
 </body>
 
