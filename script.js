@@ -7,11 +7,17 @@ var startButton = $('#start-button');
 var quizDiv = $("#quiz");
 var highScoreDiv =$("#submit-high-score");
 var finalScoreSpan= $("#final-score");
+var submitButton = $("#submit-button");
 var timeRemaining = (questions.length * 15);
 var timerId;
 var questionIndex = 0;
 var score = 0;
+var highScoreKey = "highScoreKey";
+var highScoreString;
+var highScoreCount=0;
+var highScoreArr = JSON.parse(localStorage.getItem(highScoreKey)) || [];
 highScoreDiv.hide();
+
 
 
 
@@ -30,11 +36,27 @@ startButton.on("click", function () {
 
 });
 
+
 function submitScore()
 {
-
+    
+    var tempHighScoreVar;
+    
     highScoreDiv.show();
     finalScoreSpan.text("Your Final Score Is: "+score);
+ submitButton.on("click",function(){
+    var initialVal = $("#inital-input").val();    
+    highScoreArr.push({score, initialVal});
+    highScoreString = JSON.stringify(highScoreArr);
+    
+    localStorage.setItem(highScoreKey, highScoreString );
+    highScoreCount++;
+    
+
+
+ });
+    
+
     
 }
 
@@ -71,7 +93,7 @@ function generateQuestion(questionsArr) {
    
 
 
-    displayedQuestion.addClass("text-center");
+    displayedQuestion.addClass("text-center text-white");
     displayedQuestion.text(questionsArr[questionIndex].title);
     quizDiv.append(displayedQuestion);
 
