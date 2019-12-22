@@ -1,4 +1,4 @@
-//$(document).ready(function(){
+$(document).ready(function(){
 
 
 /*******var decleration******************/
@@ -9,6 +9,7 @@ var highScoreDiv = $("#submit-high-score");
 var finalScoreSpan = $("#final-score");
 var submitButton = $("#submit-button");
 var clearButton = $("#clear-storage");
+var rankings = $("#high-score-rankings");
 var timeRemaining = (questions.length * 15);
 var timerId;
 var questionIndex = 0;
@@ -20,7 +21,7 @@ var highScoreArr = JSON.parse(localStorage.getItem(highScoreKey)) || [];
 highScoreDiv.hide();
 
 
-
+console.log(rankings);
 
 /****************************************/
 timerDisplay.text("Time:" + timeRemaining);
@@ -46,7 +47,7 @@ function submitScore() {
         highScoreArr.push({ score, initialVal });
         highScoreString = JSON.stringify(highScoreArr);
         localStorage.setItem(highScoreKey, highScoreString);
-       
+        // getHighscore();
 
     });
 
@@ -64,12 +65,29 @@ function gameOver() {
     quizDiv.empty();
     submitScore();
 }
-//getHighscore()
+function getHighscore()
+{   
+
+    console.log(window.location.href);
+    HighScoreDisplayArr = JSON.parse(localStorage.getItem(highScoreKey));
+    for (var i = 0; i < HighScoreDisplayArr.length; i++) {
+
+        var oldHighScore = $("<li></li>");
+        
+        oldHighScore.addClass("list-group-item list-group-item-action");
+        oldHighScore.attr("id", i);       
+        oldHighScore.text(HighScoreDisplayArr[i].initialVal + " " + HighScoreDisplayArr[i].score );
+        console.log(rankings);
+        $("#high-score-rankings").append(oldHighScore);
+
+}
+}
 function clearHighScore()
 {
     
     localStorage.clear();
     highScoreArr = [];
+
 
 }
 
@@ -178,6 +196,11 @@ function timer() {
 
 
 
+if(window.location.href.indexOf("high-score-page.html"))
+{
+    console.log("High Score");
+    getHighscore();
+}
 
 
 
@@ -190,5 +213,4 @@ function timer() {
 
 
 
-
-//});
+});
